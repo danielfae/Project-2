@@ -11,8 +11,7 @@ In this project we're going to create our own, stripped down version of [a nice 
 
 Because of [some subtleties](https://stackoverflow.com/questions/8449716/cross-origin-requests-are-only-supported-for-http-but-its-not-cross-domain/14490982#14490982) in how browsers let you use JavaScript to access things not "in the same domain" as your webpage, we have to open Google Chrome in a special mode which allows access to local files.  Analogues may exist for Firefox and Safari, if you're intent on using those browsers you'll need to research the alternatives yourself.
 
-
-### On a Mac:
+#### On a Mac:
 
 0. Close all instances of Google Chrome running on your computer.  If you see any errors referring to "Unable to obtain profile lock," this means you _haven't_ done this yet.
 
@@ -20,12 +19,11 @@ Because of [some subtleties](https://stackoverflow.com/questions/8449716/cross-o
 
 2. At your terminal, paste the following: `/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --allow-file-access-from-files` and press Enter.  You'll see a bunch of messages in your Terminal, but Google Chrome should open.
 
-![How your Terminal.app will look after opening; ignore the error messages](./README-media/ChromeTerminal.png)
-
 3. Open `sotu.html` in Chrome.
 
+![How your Terminal.app will look after opening; ignore the error messages](./README-media/ChromeTerminal.png)
 
-### On Windows:
+#### On Windows:
 
 0. Close all instances of Google Chrome completely.
 
@@ -35,7 +33,6 @@ Because of [some subtleties](https://stackoverflow.com/questions/8449716/cross-o
 
 3. Click "OK" and re-open Chrome
 
-
 ### Commit-by-commit project build-up
 
 We've structured the commits in this repository in an attempt to address one issue folks raised with the initial projects.  People told us that while seeing a functioning example is helpful, understanding the example is different than being able to create something like it (and the attendant understanding) when you begin from scratch.  So, the commits in this repository--similar to the [first HTML/CSS/JS Hangout](https://github.com/DGMD-E-15/HTML-CSS-JS-Hangout-1)--are structured to tell a story, building up this app from scratch.  Please [let us know](mailto:dgmde15@gmail.com) how this works (or doesn't!) for you.
@@ -44,9 +41,15 @@ We've structured the commits in this repository in an attempt to address one iss
 
 ## The Data
 
+<<<<<<< HEAD
+In this app, we'll be using a bunch of data which Twitter put together from the SOTU.  You can see the code they used to create their app [on GitHub](https://github.com/twitter/interactive/tree/gh-pages/sotu2014).  The file `data/json/values.json` contains a bunch of data about the frequency and volume of keywords tagged with `#SOTU` and one of six subjects (`#energy`, `#jobs`, `#education`, `#fairness`, `#healthcare`, or `#defense`).  The data is stored in "JSON" == "JavaScript Object Notation", which is a common standard for storing data which overlaps with a lot of JavaScript syntax.  I'd encourage you to read more about it [here](http://www.copterlabs.com/blog/json-what-it-is-how-it-works-how-to-use-it/) and take a look at the some of the official materials [here](http://www.json.org/js.html).
+
+You'll also need a copy of the enhanced State of the Union, which you can find [on YouTube](https://www.youtube.com/watch?v=arhBRouSmWs).  You can download a copy locally using a service like [KeepVid](http://keepvid.com/).  For the more command-line oriented folks, I'd recommend [`youtube-dl`](http://rg3.github.io/youtube-dl/download.html).
+=======
 In this app, we'll be using a bunch of data which Twitter put together from the SOTU.  You can see the code they used to create their app [on GitHub](https://github.com/twitter/interactive/tree/gh-pages/sotu2014).  The file `data/json/values.json` contains a bunch of data about the frequency and volume of keywords tagged with `#SOTU` and one of six subjects (`#energy`, `#jobs`, `#education`, `#fairness`, `#healthcare`, or `#defense`).  The data is stored in "JSON" == "JavaScript Object Notation", which is a common standard for storing data which overlaps with a lot of JavaScript syntax.  We'd encourage you to read more about it [here](http://www.copterlabs.com/blog/json-what-it-is-how-it-works-how-to-use-it/) and take a look at the some of the official materials [here](http://www.json.org/js.html).
 
 You'll also need a copy of the enhanced State of the Union, which you can find [on YouTube](https://www.youtube.com/watch?v=arhBRouSmWs).  You can download a copy locally using a service like [KeepVid](http://keepvid.com/).  For the more command-line oriented folks, We'd recommend [`youtube-dl`](http://rg3.github.io/youtube-dl/download.html).
+>>>>>>> 691003d1a11789d2e50341627bc15e426eaf6268
 
 We wanted a timestamped transcript of the SOTU, which surprisingly the White House does not provide.  C-SPAN provides [something close to our needs](http://www.c-span.org/video/?316796-1/state-union-address), but it was necessary to go through and flesh out the full transcript.  We've done this for you, and the full, timestamped transcript appears in `sotu.html` in `article#sotu-transcript`.  You'll notice that each `div` with `#sotu-transcript` has it's own timestamp, _e.g._
 
@@ -102,7 +105,11 @@ Of course, this is only simple to the resolution of the timestamps provided--_i.
 
 ### 5. Recreate the streamgraph dynamically
 
+<<<<<<< HEAD
+The plot at the top is called a ["streamgraph"](https://en.wikipedia.org/wiki/Streamgraph)--it's basically the continuous version of a stacked bar/stacked area chart.  You can build these surprisingly simply with [d3.js](http://d3js.org/), _e.g._ take a look at [this](http://bl.ocks.org/mbostock/4060954) streamgraph example or [this](http://bl.ocks.org/mbostock/3885211) stacked area chart.  Try recreating the streamgraph at the top with d3.
+=======
 The plot at the top is called a ["streamgraph"](https://en.wikipedia.org/wiki/Streamgraph)--it's basically the continuous version of a stacked bar/stacked area chart.  You can build these surprisingly simply with [d3.js](http://d3js.org/), _e.g._ take a look at [this](http://bl.ocks.org/mbostock/4060954) streamgraph example or [this](http://bl.ocks.org/mbostock/3885211) stacked area chart.  Try recreating the streamgraph at the top with d3. (We'll also show you how to create this effect using [Processing.js](http://processingjs.org/).)
+>>>>>>> 691003d1a11789d2e50341627bc15e426eaf6268
 
 ![Illustration of suggested extension #5](./README-media/Extension-5.png)
 
