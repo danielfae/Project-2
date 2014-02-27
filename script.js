@@ -44,7 +44,7 @@ function hashtagMousemove(e) {
 
 hashtagPlot.addEventListener('mouseout', playVideo, false);
 function playVideo(e) {
-	scrubBar.style.visibility = "hidden";
+	scrubBar.style.visibility = "visible";
 	SOTUvideo.play();
 }
 
@@ -77,12 +77,14 @@ function nearestStamp(fractionScrubbed) {
 	// Figure out what the closest timestamp we have is to the current amount of scrubbing
 	var timestampEquivalent = fractionScrubbed * SOTUvideo.duration + videoOffset; // IF we had a timestamp, what would it be?
 	for (var i = 0; i < timestamps.length - 1; i++) {
-		if ( timestamps[i+1] > timestampEquivalent ) { // Find teh first timestamp our guess is greater than
-			return timestamps[i];
+		if ( timestamps[i+1] > timestampEquivalent ) { // Find the first timestamp our guess is greater than
+			return timestamps[i-2];
+			updateTranscript(e);
 		}
 	}
 	return timestamps[timestamps.length - 1];
 }
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -124,6 +126,7 @@ window.onload = function () {
 // Set up the video so that the chart is updated and the nation recolored every time the time changes
 document.getElementById('sotu-video').addEventListener("timeupdate", updatePage);
 function updatePage() {
+
 	var dominantHashtag = dominantHashtagAt(SOTUvideo.currentTime);
 	recolorNation(dominantHashtag);
 	updateChart();
@@ -291,7 +294,16 @@ function getTotalEngagement(interval, hashtag) {
 	return sum;
 }
 
+document.getElementById('sotu-video').addEventListener("timeupdate", updatePage);
+function updatePage() {
 
+
+	scrubBar.style.visibility = 'visible';
+	scrubBar.style.left = SOTUvideo.currentTime*hashtagPlot.offsetWidth/SOTUvideo.duration; 
+
+	scrubBar.fractionScrubbed = parseInt(scrubBar.style.left, 10)/hashtagPlot.offsetWidth;
+	
+}
 ////////////////////////////////////////////////////////////////////////////////
 // Utility functions
 
