@@ -325,8 +325,6 @@ function getTotalEngagement(interval, hashtag) {
 
 document.getElementById('sotu-video').addEventListener("timeupdate", updateScrubWithVideo);
 function updateScrubWithVideo() {
-
-
 	scrubBar.style.visibility = 'visible';
 	scrubBar.style.left = SOTUvideo.currentTime*hashtagPlot.offsetWidth/SOTUvideo.duration; 
 
@@ -336,9 +334,6 @@ function updateScrubWithVideo() {
 	scrollToTimestamp(nearestStamp(scrubBar.fractionScrubbed));
 	highlightTimestamp(nextNearestStamp(scrubBar.fractionScrubbed));
 	//document.getElementById('sotu-transcript').scrollTop += SOTUvideo.currentTime;
-
-	
-	
 	
 }
 
@@ -382,19 +377,25 @@ function updateScrubWithTranscript(parsedDivID){
 
 }
 
-//scroll the video and scrubBar with transcript
-transcript.addEventListener('scroll', scrollVideo, false);
-function scrollVideo(e) {
+//2. Connect scrolling the transcript to the video and plot
+//You'll notice that currently, when you scroll the transcript, neither the video nor the location of the red bar on the plot change. 
+//Implement this. Scroll the video and scrubBar with transcript
 
-	updateVideoScrolling(e);
-}
+// transcript.addEventListener('scroll', scrollVideo, false);
+// function scrollVideo(e) {
+// 	SOTUvideo.currentTime = document.getElementById('sotu-transcript').scrollTop;
+	
+	//updateVideoScrolling(e);
+	//updateScrubWithVideo();
+	
+// 	scrubBar.style.left = SOTUvideo.currentTime*hashtagPlot.offsetWidth/SOTUvideo.duration; 
+// }
+// document.getElementById('sotu-transcript').onmouseout=function(){
+// 	document.getElementById('sotu-video').removeEventListener('scroll', scrollVideo);
+// };
 
-
-
-
-function updateVideoScrolling(e) {
-	SOTUvideo.currentTime = document.getElementById('sotu-transcript').scrollTop;
-}
+// function updateVideoScrolling(e) {	
+// }
 
 
 
