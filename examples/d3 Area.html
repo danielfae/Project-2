@@ -1,0 +1,31 @@
+<html>
+
+	<head>
+		<script src='http://d3js.org/d3.v3.min.js'></script>
+	</head>
+
+	<body></body>
+
+	<script>
+		// Create an SVG and set its size
+		var svg = d3.select("body").append("svg")
+		.attr("width", 400)
+		.attr("height", 300)
+
+		// Some arbitrary data
+		var data = [
+			[0,   100],
+			[100, 200],
+			[200, 300],
+			[300, 200],
+		];
+
+		svg.selectAll("path.area")
+			.data([data]) // Notice that since each area path needs a 2D array, we need to bind a 3D array
+			.enter().append("path") // for set of pairs of data
+			.style("fill", "red") // set the fill
+			.attr("transform", "translate(0, 300) scale(1, -1)") // and flip our shape around
+			.attr("d", d3.svg.area()); // and actually set the d attribute of the SVG to draw the path
+	</script>
+
+</html>

@@ -1,0 +1,66 @@
+<html>
+
+	<head>
+		<script src='https://github.com/downloads/processing-js/processing-js/processing-1.4.1.js'></script>
+		<style>
+			canvas { outline: none; } /* So that when we click, the canvas isn't outlined */
+		</style>
+	</head>
+
+	<body>
+		<canvas></canvas>
+	</body>
+	
+	<script>
+		var canvas = document.getElementsByTagName('canvas')[0];
+		var width = 600;
+
+		function sketch(p) {
+			var data = []
+			var y = [10, 50, 10, 20, 50, 250]; // the y-values of our vertices
+			var xSpacing = width/(y.length-1); // the spacing between our vertices
+
+			for (var i = 0; i < y.length; i++) {
+				data[i] = {'x': i*xSpacing, 'y': y[i]}; // use a dictionary for easy x, y access
+			}
+			
+			function plot(data) {
+				p.fill(255, 0, 0);
+				p.noStroke();
+
+				var plot = p.beginShape();
+
+				for (var i = 0; i < data.length; i++) {
+					p.vertex(data[i].x, data[i].y);
+				}
+				p.vertex(data[data.length-1].x, 0); // add a point at the bottom right corner
+				p.vertex(0, 0); // add a point at the origin
+
+				p.endShape();
+			}
+
+			function normalizeCoordinates() {
+				// flip Processing's weird coordinate system with (0, 0) in the top left
+				p.translate(0, p.height)
+				p.scale(1, -1);
+			}
+
+			function setup() {
+				p.size(width, p.max(y)*1.25); // scale our sketch to be a bit bigger than our tallest y
+			}
+
+			function draw () {
+				normalizeCoordinates();
+
+				plot(data);
+			}
+
+			// tell Processing which functions to use for our setup and draw
+			p.setup = setup;
+			p.draw = draw;
+		}
+
+		var p = new Processing(canvas, sketch); // actually attach and run the sketch
+	</script>
+
+</html>

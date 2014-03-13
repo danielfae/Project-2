@@ -1,0 +1,29 @@
+<html>
+
+<head>
+	<script src='http://d3js.org/d3.v3.min.js'></script>
+
+	<style>
+		#chart div {
+		  background-color: rgb(200,0,0);
+		  margin-bottom: 5px;
+		  height: 10px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id='chart'></div>
+</body>
+
+<script>
+	var data = [100, 50, 250, 50];
+
+	d3.select('#chart')
+		.selectAll("div") // for each (in our case non-existent) div
+		.data(data) // bind our data
+		.enter().append("div") // and iterate over our data, appending a div for every mismatch in number between our selection and our data
+		.style("width", function(d) { return d + "px"; }); // change the style of each appended div using this function on each data element
+</script>
+
+</html>

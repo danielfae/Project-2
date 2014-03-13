@@ -1,0 +1,46 @@
+<html>
+
+	<head>
+		<script src='https://github.com/downloads/processing-js/processing-js/processing-1.4.1.js'></script>
+		<style>
+			canvas { outline: none; } /* So that when we click, the canvas isn't outlined */
+		</style>
+	</head>
+
+	<body>
+		<canvas></canvas>
+	</body>
+	
+	<script>
+		var canvas = document.getElementsByTagName('canvas')[0];
+
+		function sketch(p) {
+			var map;
+			var michigan;
+
+			function setup() {
+				map = p.loadShape('us.svg'); // load the SVG
+				p.size(map.width, map.height); // set our sketch's width and height
+				michigan = map.getChild("MI");
+			}
+
+			function draw () {
+				p.background(255); // white background; note the shorthand for 255, 255, 255
+				p.shape(map, 0, 0);
+
+				// change Michigan's color
+				michigan.disableStyle();
+				p.fill(255, 0, 0);
+				p.shape(michigan, 0, 0);
+				michigan.enableStyle();
+			}
+
+			// tell Processing which functions to use for our setup and draw
+			p.setup = setup;
+			p.draw = draw;
+		}
+
+		var p = new Processing(canvas, sketch); // actually attach and run our sketch
+	</script>
+
+</html>

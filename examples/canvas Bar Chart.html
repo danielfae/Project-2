@@ -1,0 +1,28 @@
+<html>
+
+	<body>
+		<canvas></canvas>
+	</body>
+
+	<script>
+
+	// bar sizing in px
+	var barHeight = 10;
+	var barSpacing = 5;
+
+	var data = [100, 50, 250, 50]; // some arbitrary data
+
+	var canvas = document.getElementsByTagName('canvas')[0];
+
+	if (canvas.getContext) {
+		var ctx = canvas.getContext('2d'); // grab the drawing context
+		ctx.fillStyle = "rgb(200, 0, 0)"; // change the color of the fill to red
+	}
+
+	for (var i = 0; i < data.length; i++ ) {
+		ctx.fillRect(0, (barSpacing + barHeight)*i, data[i], barHeight);
+	}
+
+	</script>
+
+</html>

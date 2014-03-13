@@ -100,7 +100,11 @@ li a {
 #middle {
 	width: 37%;
 }
+canvas{
 
+	position: absolute;
+	top: 10px;
+}
 #sotu-transcript {
 	font-family: 'Crimson Text', serif;
 

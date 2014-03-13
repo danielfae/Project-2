@@ -74,7 +74,7 @@ function scrollToTimestamp(timestamp) {
 
 	var target = transcript.querySelector('#transcript-time-' + timestamp);
 	//timestamps[i-1].setAttribute('style','background-color:red;');
-	transcript.querySelector('#transcript-time-' + timestamp).setAttribute('style','background-color:yellow;');
+	document.getElementById('transcript-time-' + timestamp).setAttribute('style','background-color:yellow;');
 	//timestamps[i+1].setAttribute('style','background-color:yellow;');
 	document.getElementById('sotu-transcript').scrollTop = target.offsetTop;
 }
@@ -337,13 +337,19 @@ function updateScrubWithVideo() {
 	
 }
 
+
+
 document.getElementById('sotu-transcript').onmouseover=function(){
+	transcript.addEventListener('scroll', transcriptDivs, false);
+
 	document.getElementById('sotu-video').removeEventListener("timeupdate", updateScrubWithVideo);
 
 };
 
 document.getElementById('sotu-transcript').onmouseout=function(){
 	document.getElementById('sotu-video').addEventListener("timeupdate", updateScrubWithVideo);
+	transcript.removeEventListener('scroll', transcriptDivs, false);
+	// function transcriptDivs (){};
 };
 
 
@@ -353,9 +359,9 @@ function transcriptDivs() {
 	var stampedDivs = transcript.querySelectorAll('div');
 	var jumptoStamp=null;
 	for (var i = 0; i < stampedDivs.length; i++) {
-		console.log(stampedDivs[i].id);
+		// console.log(stampedDivs[i].id);
 		//document.onmouseover = function() { console.log(stampedDivs[i]); };
-		stampedDivs[i].onclick=function(){
+		stampedDivs[i].onmouseover=function(){
 		// console.log(this.id);
 
 		jumptoStamp=parseInt(this.id.split('-')[2], 10);
@@ -366,7 +372,7 @@ function transcriptDivs() {
 	}
 }
 
-transcriptDivs();
+// transcript.addEventListener('scroll', transcriptDivs, false);
 
 function updateVideoWithTranscript(parsedDivID){
 	SOTUvideo.currentTime = parsedDivID-videoOffset;
@@ -377,16 +383,40 @@ function updateScrubWithTranscript(parsedDivID){
 
 }
 
-//2. Connect scrolling the transcript to the video and plot
-//You'll notice that currently, when you scroll the transcript, neither the video nor the location of the red bar on the plot change. 
-//Implement this. Scroll the video and scrubBar with transcript
+// scrolling=null;
+// for (var i = 0; i < timestamps.length - 1; i++) {
+// // 	console.log(document.getElementById('transcript-time-' + timestamps[i]));
+// // transcript.getElementById('transcript-time-' + timestamps[i]).addEventListener('onmouseover', scrollVideo, false);
+// // }
+
+// transcript.addEventListener('scroll', scrollVideo, false);
+
+// function scrollVideo(e) {
+
+// 	timestampNext = scrubBar.fractionScrubbed * SOTUvideo.duration + videoOffset; // IF we had a timestamp, what would it be?
+// 	scrolling = scrolling+2;
+// 	nextStamp=timestampNext+scrolling;
+// 	for (var i = 0; i < timestamps.length - 1; i++) {
+// 		if ( nextStamp > timestamps[i+1] ) { // Find the first timestamp our guess is greater than
+// 			console.log(nextStamp);
+// 			updateVideoWithTranscript(timestamps[i+1]);
+// 			updateScrubWithVideo();
+// 		}
+// 	}
+// 	}
+
+	
+
+// 2. Connect scrolling the transcript to the video and plot
+// You'll notice that currently, when you scroll the transcript, neither the video nor the location of the red bar on the plot change. 
+// Implement this. Scroll the video and scrubBar with transcript
 
 // transcript.addEventListener('scroll', scrollVideo, false);
 // function scrollVideo(e) {
-// 	SOTUvideo.currentTime = document.getElementById('sotu-transcript').scrollTop;
+// 	SOTUvideo.currentTime = transcript.scrollTop/transcript.offsetHeight*SOTUvideo.duration;
 	
-	//updateVideoScrolling(e);
-	//updateScrubWithVideo();
+	// updateVideoScrolling(e);
+	// updateScrubWithVideo();
 	
 // 	scrubBar.style.left = SOTUvideo.currentTime*hashtagPlot.offsetWidth/SOTUvideo.duration; 
 // }
@@ -396,6 +426,37 @@ function updateScrubWithTranscript(parsedDivID){
 
 // function updateVideoScrolling(e) {	
 // }
+
+///////////////////////////////////////////////////////////////////////////////
+// Canvas Magic
+
+document.addEventListener('DOMContentLoaded', function(){
+		// Get handles on the video and canvas elements
+		var video = document.querySelector('video');
+		var canvas = document.querySelector('canvas');
+		// Get a handle on the 2d context of the canvas element
+		var context = canvas.getContext('2d');
+		// Define some vars required later
+		var w, h;
+		
+		// Add a listener to wait for the 'loadedmetadata' state so the video's dimensions can be read
+		video.addEventListener('loadedmetadata', function() {
+			w = video.videoWidth;
+			
+			h = video.videoHeight;
+			
+		}, false);
+		
+		video.addEventListener('play', function(){
+        draw(this,context,w,h);
+    	},false);
+},false);
+
+function draw(v,c,w,h) {
+    if(v.paused || v.ended) return false;
+    c.drawImage(v,0,0,w,h);
+    setTimeout(draw,20,v,c,w,h);
+}
 
 
 
