@@ -10,7 +10,7 @@ html, body {
 #hashtag-plot {
 	background: url('./media/hashtagVolume.png'); /* screenshot from twitter's site */
 	background-size: contain; /* Auto-scaling the image to fit in the div */
-
+position: relative;
 	width: 1280px;
 	height: 300px;
 
@@ -28,7 +28,8 @@ html, body {
 	visibility: hidden; /* We hide it so that it doesn't show up by default */
 	width: 5px;
 	height: 100%;
-	background-color: black;
+	background-color: yellow;
+	z-index: 80;
 }
 
 
@@ -100,11 +101,7 @@ li a {
 #middle {
 	width: 37%;
 }
-canvas{
 
-	position: absolute;
-	top: 10px;
-}
 #sotu-transcript {
 	font-family: 'Crimson Text', serif;
 
@@ -175,4 +172,55 @@ canvas{
 	
 	-webkit-transition: 250ms linear;
 	transition: 250ms linear;
+}
+
+/*Video replica*/
+
+canvas {
+	position: absolute;
+	width:1280px;
+    height:270px; 
+	
+}
+
+.vcanvas{
+	width:300px;
+	height:150px;
+	z-index: 100;
+	position: absolute;
+	display: inline-block;
+}
+
+/*
+Adding a random Steamgraph*/
+.sgraph{
+    margin:0;
+    padding:0;
+   	/*float: right;*/
+   	position:relative;
+   	top:-300px;
+   	pointer-events:none;
+
+ 
+  
+    background:transparent;
+  	
+
+	/*width: 1280px;
+	height: 300px;*/
+
+}
+
+canvas #full{
+    position:relative;     
+    margin:0 auto;          
+    width:1280px;
+    height:300px; 
+    z-index: 1000;
+ 	background:transparent;
+    
+  /*  height:auto !important;*/ /* real browsers */
+               /* IE6: treaded as min-height*/
+
+    /*min-height:100%; */       /* real browsers */
 }

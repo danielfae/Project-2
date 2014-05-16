@@ -429,11 +429,33 @@ function updateScrubWithTranscript(parsedDivID){
 
 ///////////////////////////////////////////////////////////////////////////////
 // Canvas Magic
+var video;
 
 document.addEventListener('DOMContentLoaded', function(){
 		// Get handles on the video and canvas elements
 		var video = document.querySelector('video');
-		var canvas = document.querySelector('canvas');
+		var canvas = document.querySelectorAll('canvas')[0];
+		// Get a handle on the 2d context of the canvas element
+		var context = canvas.getContext('2d');
+		// Define some vars required later
+		
+		var w, h;
+		// Add a listener to wait for the 'loadedmetadata' state so the video's dimensions can be read
+		video.addEventListener('loadedmetadata', function() {
+			w = 600;
+			h = 600;
+			
+		}, false);
+		
+		video.addEventListener('play', function(){
+        draw(this,context,w,h);
+    	},false);
+},false);
+
+document.addEventListener('DOMContentLoaded', function(){
+		// Get handles on the video and canvas elements
+		var video = document.querySelector('video');
+		var canvas = document.querySelectorAll('canvas')[1];
 		// Get a handle on the 2d context of the canvas element
 		var context = canvas.getContext('2d');
 		// Define some vars required later
@@ -442,7 +464,6 @@ document.addEventListener('DOMContentLoaded', function(){
 		// Add a listener to wait for the 'loadedmetadata' state so the video's dimensions can be read
 		video.addEventListener('loadedmetadata', function() {
 			w = video.videoWidth;
-			
 			h = video.videoHeight;
 			
 		}, false);
@@ -458,8 +479,71 @@ function draw(v,c,w,h) {
     setTimeout(draw,20,v,c,w,h);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// Streamgraph
 
+// var numLayers = 25;
+// var layerSize = 100;
 
+// function getStreamgraphSettings()
+// {
+//     var s = new Settings();
+//     s.show_settings = true;
+//     s.show_legend = false;
+//     s.Sort.current = "Volatility"; 
+//     return s;
+// }
+
+// function getStreamgraphData()
+// {
+//     var data = [];
+//     for (var l = 0; l < layerSize; l++)
+//         data[l] = new Array(numLayers); // not sure how to do this with [] syntax
+    
+//     // Each layer is a column; each row corresponds to an instant of time.
+//     for (var i = 0; i < numLayers; i++)
+//     { 
+//         layer = makeRandomArray(layerSize);
+//         for (var j = 0; j < layerSize; j++)
+//         {
+//             data[j][i] = layer[j];
+//         }
+//     }
+
+//     return data;
+// }
+
+// function makeRandomArray(n)
+// {
+//     var x = new Array(n);
+//     for (var i = 0; i < n; i++)
+//         x[i] = 0;
+    
+//     // add some random bumps
+//     for (var j=0; j<5; j++)
+//     {
+//         var height = 1 / Math.random();
+//         var cx = (2.0 * Math.random() - 0.5);
+//         var r = Math.random() / 10;
+        
+        
+//         for (var k = 0; k < x.length; k++) 
+//         {
+//             var a = (k / x.length - cx) / r;
+//             x[k] += height * Math.exp(-a * a);
+//         }
+//     }
+    
+//     return x;
+// }
+
+// function getStreamgraphLabels()
+// {
+//     var labels = [];
+//     for (var i = 0; i < numLayers; i++)
+//         labels[i] = "Layer # " + (i+1); // Does this work?
+//     return labels;
+// }
 
 
 

@@ -1,15 +1,24 @@
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 
 	<head>
 		<link rel='stylesheet' type='text/css' href='./style.css'>
 		<link href='http://fonts.googleapis.com/css?family=Crimson+Text' rel='stylesheet' type='text/css'>
+		 <script type="text/javascript" src="./deps/processing-1.1.0.min.js"></script>
+        <script type="text/javascript" src="./src/streamgraph.js"></script>
+        <script type="text/javascript" src="./src/streamgraph.settings.js"></script>
+        <script type="text/javascript" src="./src/rect.js"></script>
+        
+        <script type="text/javascript" src="./data/believable.js"></script>
 	</head>
 
 	<body>
-		<div id='hashtag-plot'>
-			<div id='scrub-bar'></div>
+		<div id='hashtag-plot'><div id='scrub-bar'></div>
+<div class="sgraph">
+	<canvas id="full" datasrc="./src/streamgraph.pjs"></canvas>
+	
+</div>
 		</div>
-		<canvas id='canvas' width="550" height="310"></canvas>
+		<canvas class='vcanvas' ></canvas>
 		<div id='container'>
 			<div class='panel' id='left'>
 				<video id='sotu-video' src='./media/sotu.mp4' controls></video>
@@ -504,8 +513,9 @@
 					</ol>
 				</div>
 			</div>
-
+ 		
 		</div>
+
 
 		<script src='./data/values.json'></script> <!-- Note that tweetValues is defined in here, the json is executable JavaScript -->
 		<script src='./script.js'></script>
